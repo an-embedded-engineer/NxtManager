@@ -19,24 +19,73 @@ namespace NxtManagerV3
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		/// <summary>
+		/// Append Messagte Delegate
+		/// </summary>
 		private AppendMessegeDelegate appendMessageDelegate;
+		
+		/// <summary>
+		/// Port状態監視タイマ
+		/// </summary>
 		private DispatcherTimer stateControlTimer;
+		
+		/// <summary>
+		/// Log Output TextBox更新用ストップウォッチ
+		/// </summary>
 		private Stopwatch txtLogOutputStopwatch;
+
+		/// <summary>
+		/// State Output TextBox更新用ストップウォッチ
+		/// </summary>
 		private Stopwatch txtStateOutputStopwatch;
+
+		/// <summary>
+		/// Logファイルロード用 Background Worker
+		/// </summary>
 		private BackgroundWorker backWorkLogLoad;
 		
+		/// <summary>
+		/// ログ受信
+		/// </summary>
 		private NxtLogReceiver logReceiver;
+		/// <summary>
+		/// ログ管理
+		/// </summary>
 		private NxtLogManager logManager;
+		/// <summary>
+		/// 状態管理
+		/// </summary>
 		private NxtStateManager stateManager;
+		/// <summary>
+		/// ロググラフ管理
+		/// </summary>
 		private NxtLogChartManager logChartManager;
+		/// <summary>
+		/// 状態グラフ管理
+		/// </summary>
 		private NxtStateChartManager stateChartManager;
 
+		/// <summary>
+		/// ログテキスト一時格納用バッファ
+		/// </summary>
 		private string bufLogTextBox;
+		/// <summary>
+		/// 状態テキスト一時格納用バッファ
+		/// </summary>
 		private string bufStateTextBox;
 
+		/// <summary>
+		/// ロググラフタブリスト
+		/// </summary>
 		private List<TabItem> logChartTabList = new List<TabItem>();
+		/// <summary>
+		/// 状態グラフタブリスト
+		/// </summary>
 		private List<TabItem> stateChartTabList = new List<TabItem>();
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
 		public MainWindow()
 		{
 			InitializeComponent();
