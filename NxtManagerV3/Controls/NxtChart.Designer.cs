@@ -1,5 +1,8 @@
 ﻿namespace NxtManagerV3
 {
+	/// <summary>
+	/// NXT Chart CXlass
+	/// </summary>
 	partial class NxtChart
 	{
 		/// <summary> 

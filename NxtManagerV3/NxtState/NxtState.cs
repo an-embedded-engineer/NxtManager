@@ -44,7 +44,9 @@ namespace NxtManagerV3
 
 	}
 
-
+	/// <summary>
+	/// NXT State Class
+	/// </summary>
 	public class NxtState : ICloneable
 	{
 		/// <summary>
@@ -61,7 +63,7 @@ namespace NxtManagerV3
 		public const double AngularVelocityOffset = 593.0;
 
 		/// <summary>
-		/// 
+		/// NXT State Data Member
 		/// </summary>
 		public static readonly String[] NxtStateDataMember = 
         {
@@ -74,6 +76,11 @@ namespace NxtManagerV3
             "Tail Angle",
 			"Position Coordinate"
         };
+
+		/// <summary>
+		/// 現在のログ
+		/// </summary>
+		public NxtLog CurrentLog { get; private set; }
 
 		/// <summary>
 		/// 走行時間
@@ -217,20 +224,13 @@ namespace NxtManagerV3
 		/// Constructor
 		/// </summary>
 		/// <param name="startPos">開始位置</param>
+		/// <param name="startDirection">開始方向</param>
 		public NxtState(Point startPos, double startDirection)
 		{
 			// 開始位置をセット
 			this.Position = startPos;
 			this.StartPosition = startPos;
 			this.startDirection = startDirection;
-#if DEBUG_DUMP 
-			using (StreamWriter sw = new StreamWriter(new FileStream("posture_dump.csv", FileMode.Create)))
-			{
-				string rec = string.Format("Gyro, Offset, AnglarVelocity, Delta, Posture\r\n");
-
-				sw.Write(rec);
-			}
-#endif
 		}
 
 		/// <summary>
@@ -239,6 +239,8 @@ namespace NxtManagerV3
 		/// <param name="log">NXT Log</param>
 		public void UpdateState(NxtLog log)
 		{
+			this.CurrentLog = log;
+
 			UpdateTime(log);
 			UpdateDist(log);
 			UpdateSpeed();
@@ -248,6 +250,10 @@ namespace NxtManagerV3
 			UpdatePosture(log);
 		}
 
+		/// <summary>
+		/// 時間を更新
+		/// </summary>
+		/// <param name="log">Log</param>
 		private void UpdateTime(NxtLog log)
 		{
 			uint time = 0;
@@ -632,6 +638,10 @@ namespace NxtManagerV3
 
 		#region ICloneable メンバー
 
+		/// <summary>
+		/// Cloneを返す
+		/// </summary>
+		/// <returns>Clone</returns>
 		public object Clone()
 		{
 			NxtState clone = new NxtState(this.StartPosition, this.startDirection);
